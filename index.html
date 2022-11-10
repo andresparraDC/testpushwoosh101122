@@ -21,8 +21,14 @@
           },
           subscribeWidget: {
             enable: true,
+            position: 'bottomLeft',
+            tooltipText: {
+              successSubscribe: 'You are successfully subscribed!',
+              needSubscribe: 'Get notifications about important news!',
+              blockSubscribe: 'Click to see how to get notifications',
+              alreadySubscribed: 'You are already subscribed'
+            }
           },
-          serviceWorkerUrl: 'pushwoosh-service-worker.js'
         }]);
         
         // Load Event
