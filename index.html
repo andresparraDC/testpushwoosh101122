@@ -9,16 +9,16 @@
     <script type="text/javascript">
         var Pushwoosh = Pushwoosh || [];
         Pushwoosh.push(["init", {
-          logLevel: 'debug', // possible values: error, info, debug
+          logLevel: 'debug',
           applicationCode: '8287F-4D09B',
           safariWebsitePushID: '',
           defaultNotificationTitle: 'Pushwoosh',
           defaultNotificationImage: 'https://cp.pushwoosh.com/img/logo-medium.png',
           autoSubscribe: false,
-          //userId: 'user_id',
-          //tags: {
-          //  'Name': 'John Smith'
-          //}
+          userId: 'user_id',
+          tags: {
+            'Name': 'Andres Parra'
+          },
           subscribeWidget: {
             enable: true,
           },
@@ -35,11 +35,33 @@
           console.log('Pushwoosh ready!');
         });
 
+        // Pushwoosh.isSubscribed() function
         function checking(){
           Pushwoosh.isSubscribed().then(function(isSubscribed) {
           console.log('isSubscribed', isSubscribed);
           });
-        }  
+        }
+        
+        // Pushwoosh.getHWID() function
+        function getHWID(){
+          Pushwoosh.getHWID().then(function(hwid) {
+            console.log('hwid:', hwid);
+          });
+        }
+
+        // Pushwoosh.getPushToken() function
+        function getPushToken(){
+          Pushwoosh.getPushToken().then(function(pushToken) {
+            console.log('pushToken:', pushToken);
+          });
+        }
+
+        // Pushwoosh.getUserId() function
+        function getUserID(){
+          Pushwoosh.getUserId().then(function(userId) {
+            console.log('userId:', userId);
+          });
+        }
 
         // Subscription Widget Events
         Pushwoosh.push(['onLoad', function (api) {
@@ -124,23 +146,38 @@
 </head>
 <body>
     <h1>Pushwoosh Web for AndresWeb</h1>
-    <button onclick="Pushwoosh.subscribe()">Subscribe</button>
+    <button onclick="Pushwoosh.subscribe()">
+      Subscribe
+    </button>
     <script>
-    Pushwoosh.push(['onSubscribe', function(api) {
-      console.log('User successfully subscribed');
-      }]
-    );
+      Pushwoosh.push(['onSubscribe', function(api) {
+        console.log('User successfully subscribed');
+      }]);
     </script>
     
-    <button onclick="Pushwoosh.unsubscribe()">Unsubscribe</button>
+    <button onclick="Pushwoosh.unsubscribe()">
+      Unsubscribe
+    </button>
     <script>
-    Pushwoosh.push(['onUnsubscribe', function(api) {
-      console.log('User successfully unsubscribed');
-      }]
-    );
+      Pushwoosh.push(['onUnsubscribe', function(api) {
+        console.log('User successfully unsubscribed');
+      }]);
     </script>
 
-    <button onclick="checking()">Check</button>
+    <button onclick="checking()">
+      Check Subscription
+    </button>
 
+    <button onclick="getHWID()">
+      GET HWID
+    </button>
+
+    <button onclick="getPushToken()">
+      GET PUSH TOKEN
+    </button>
+
+    <button onclick="getUserID()">
+      GET USER ID
+    </button>
 </body>
 </html>
