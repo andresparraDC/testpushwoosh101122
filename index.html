@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Pushwoosh Web SDK Sample</title>
+
+    <link rel="manifest" href="manifest.json">
+    <script type="text/javascript" src="https://cdn.pushwoosh.com/webpush/v3/pushwoosh-web-notifications.js" async></script>
+    <script type="text/javascript">
+        var Pushwoosh = Pushwoosh || [];
+        Pushwoosh.push(["init", {
+          logLevel: 'debug', // possible values: error, info, debug
+          applicationCode: '8287F-4D09B',
+          safariWebsitePushID: '',
+          defaultNotificationTitle: 'Pushwoosh',
+          defaultNotificationImage: 'https://cp.pushwoosh.com/img/logo-medium.png',
+          autoSubscribe: false,
+          //userId: 'user_id',
+          //tags: {
+          //  'Name': 'John Smith'
+          //}
+          subscribeWidget: {
+            enable: true,
+          },
+          serviceWorkerUrl: 'pushwoosh-service-worker.js'
+        }]);
+        
+        // Load Event
+        Pushwoosh.push(['onLoad', function (api) {
+          console.log('Pushwoosh load!');
+        }]);
+        
+        // Ready Event
+        Pushwoosh.push(function (api) {
+          console.log('Pushwoosh ready!');
+        });
+
+        Pushwoosh.isSubscribed().then(function(isSubscribed) {
+          console.log('isSubscribed', isSubscribed);
+        });
+
+        // Subscription Widget Events
+        Pushwoosh.push(['onLoad', function (api) {
+          // Executed on displaying of the Subscription Prompt widget
+          Pushwoosh.addEventHandler('show-subscription-widget', function (payload) {
+            console.log('Triggered event: show-subscription-widget');
+          });
+          
+          // Executed on hiding of the Subscription Prompt widget
+          Pushwoosh.addEventHandler('hide-subscription-widget', function (payload) {
+            console.log('Triggered event: hide-subscription-widget');
+          });
+        }]);
+
+        // Notification Permission Dialog Events
+        Pushwoosh.push(['onLoad', function (api) {
+          // Executed on permission dialog displaying
+          Pushwoosh.addEventHandler('show-notification-permission-dialog', function (payload) {
+            console.log('Triggered event: show-notification-permission-dialog');
+          });
+          // Executed on hiding the permission dialog with one of three possible statuses: 
+          // 1. default - the dialog is closed 
+          // 2. granted - permission is granted 
+          // 3. denied - permission is denied
+          Pushwoosh.addEventHandler('hide-notification-permission-dialog', function (payload) {
+            console.log('Triggered event: hide-notification-permission-dialog', payload.permission);
+          });
+        }]);
+
+        // Permission Events
+        Pushwoosh.push(['onLoad', function (api) {
+          // Executed during the SDK initialization if 'autoSubscribe: false' or/and if a user ignores a push notification prompt.
+          Pushwoosh.addEventHandler('permission-default', function (payload) {
+            console.log('Triggered event: permission-default');
+          });
+          
+          // Executed during the SDK initialization if notifications are blocked or once a user blocks push notifications.
+          Pushwoosh.addEventHandler('permission-denied', function (payload) {
+            console.log('Triggered event: permission-denied');
+          });
+          
+          // Executed during the SDK initialization if notifications are allowed or once a user allows push notifications.
+          Pushwoosh.addEventHandler('permission-granted', function (payload) {
+            console.log('Triggered event: permission-granted');
+          });
+        }]);
+
+        // Receive Push Event
+        Pushwoosh.push(['onLoad', function (api) {
+          // Executed when a push notification is displayed.
+          Pushwoosh.addEventHandler('receive-push', function (payload) {
+            console.log('Triggered event: receive-push', payload.notification);
+          });
+        }]);
+
+        // Notification Events
+        Pushwoosh.push(['onLoad', function (api) {
+          // Executed when a user clicks on notification.
+          Pushwoosh.addEventHandler('open-notification', function (payload) {
+            console.log('Triggered event: open-notification', payload.notification);
+          });
+          
+          // Executed when a user closes a push notification.
+          Pushwoosh.addEventHandler('hide-notification', function (payload) {
+            console.log('Triggered event: hide-notification', payload.notification);
+          });
+        }]);
+
+        // Inbox Events
+        Pushwoosh.push(['onLoad', function (api) {
+          // Executed by ServiceWorker after the Inbox Message is received and saved to indexedDB.
+          Pushwoosh.addEventHandler('receive-inbox-message', function (payload) {
+            console.log('Triggered event: receive-inbox-message', payload.message);
+          });
+          
+          // Executed after the Inbox is updated automatically while the page is loading.
+          Pushwoosh.addEventHandler('update-inbox-messages', function (payload) {
+            console.log('Triggered event: receive-inbox-message', payload.messages);
+          });
+        }]);
+    </script>
+</head>
+<body>
+    <h1>Pushwoosh Web for AndresWeb</h1>
+    <button onclick="Pushwoosh.subscribe()">Subscribe</button>
+    <script>
+    Pushwoosh.push(['onSubscribe', function(api) {
+      console.log('User successfully subscribed');
+      }]
+    );
+    </script>
+    
+    <button onclick="Pushwoosh.unsubscribe()">Unsubscribe</button>
+    <script>
+    Pushwoosh.push(['onUnsubscribe', function(api) {
+      console.log('User successfully unsubscribed');
+      }]
+    );
+    </script>
+
+
+
+</body>
+</html>

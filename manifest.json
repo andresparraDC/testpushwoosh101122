@@ -1,0 +1,7 @@
+{
+  "name": "AndresWeb Pushwoosh Notifications",
+  "short_name": "Pushwoosh Notifications Andres Web",
+  "gcm_sender_id": "849346463510",
+  "display": "standalone",
+  "gcm_user_visible_only": true
+}
