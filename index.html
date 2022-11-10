@@ -35,9 +35,11 @@
           console.log('Pushwoosh ready!');
         });
 
-        Pushwoosh.isSubscribed().then(function(isSubscribed) {
+        function checking(){
+          Pushwoosh.isSubscribed().then(function(isSubscribed) {
           console.log('isSubscribed', isSubscribed);
-        });
+          });
+        }  
 
         // Subscription Widget Events
         Pushwoosh.push(['onLoad', function (api) {
@@ -138,7 +140,7 @@
     );
     </script>
 
-
+    <button onclick="checking()">Check</button>
 
 </body>
 </html>
