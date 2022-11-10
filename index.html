@@ -15,7 +15,7 @@
           defaultNotificationTitle: 'Pushwoosh',
           defaultNotificationImage: 'https://cp.pushwoosh.com/img/logo-medium.png',
           autoSubscribe: false,
-          userId: 'user_id',
+          userId: '1990',
           tags: {
             'Name': 'Andres Parra'
           },
@@ -61,6 +61,21 @@
           Pushwoosh.getUserId().then(function(userId) {
             console.log('userId:', userId);
           });
+        }
+
+        // Pushwoosh.getParams() function
+        function getPARAMS(){
+          Pushwoosh.getParams().then(function(params) {
+            params = params || {};
+            var hwid = params.hwid;
+            var pushToken = params.pushToken;
+            var userId = params.userId;
+          });
+        }
+
+        // Pushwoosh.isAvailableNotifications() function
+        function checkNotifications(){
+          Pushwoosh.isAvailableNotifications() // true/false
         }
 
         // Subscription Widget Events
@@ -179,5 +194,14 @@
     <button onclick="getUserID()">
       GET USER ID
     </button>
+
+    <button onclick="getPARAMS()">
+      GET PARAMS
+    </button>
+
+    <button onclick="checkNotifications()">
+      Check Notifications
+    </button>
+    
 </body>
 </html>
