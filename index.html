@@ -71,12 +71,15 @@
 
         // Pushwoosh.getParams() function
         function getPARAMS(){
-          Pushwoosh.getParams().then(function(params) {
-            params = params || {};
-            var hwid = params.hwid;
-            var pushToken = params.pushToken;
-            var userId = params.userId;
-          });
+          console.log(
+            'PARAMS:',
+            Pushwoosh.getParams().then(function(params) {
+              params = params || {};
+              var hwid = params.hwid;
+              var pushToken = params.pushToken;
+              var userId = params.userId;
+            })
+          );
         }
 
         // Pushwoosh.isAvailableNotifications() function
